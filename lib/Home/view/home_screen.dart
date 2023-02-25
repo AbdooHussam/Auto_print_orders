@@ -32,12 +32,12 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    scan(PrinterType.usb);
-  }
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   scan(PrinterType.usb);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +53,8 @@ class _HomeScreenState extends State<HomeScreen> {
             SizedBox(height: height * .1),
             ElevatedButton(
                 onPressed: ()  async {
+                  scan(PrinterType.usb);
+                  await 500.milliseconds.delay;
                   if(devices.isNotEmpty){
                     setState(() {
                       for (var e in devices) {
@@ -61,18 +63,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       print(items);
                       dropdownvalue = items.first;
                     });
-                  }else{
-                    scan(PrinterType.usb);
-                    await 3.seconds.delay;
-                    if(devices.isNotEmpty){
-                      setState(() {
-                        for (var e in devices) {
-                          items.add(e.name);
-                        }
-                        print(items);
-                        dropdownvalue = items.first;
-                      });
-                    }
                   }
                 },
                 child: const Text("Get Devices")),
@@ -126,7 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     await pppp.Printing.directPrintPdf(
                         printer:  pppp.Printer(url: '$dropdownvalue'),
                         onLayout: (format) =>
-                            _generatePdf(format: format, title: "Printing Demo"));
+                            _generatePdf(format: format, title: "Abdoo Hossam"));
                   }
                 },
                 child: const Text("Print")),
@@ -147,14 +137,15 @@ class _HomeScreenState extends State<HomeScreen> {
         build: (context) {
           return pw.Column(
             children: [
+              pw.SizedBox(height: 60),
               pw.SizedBox(
                 width: double.infinity,
                 child: pw.FittedBox(
                   child: pw.Text(title, style: pw.TextStyle(font: font)),
                 ),
               ),
-              pw.SizedBox(height: 20),
-              pw.Flexible(child: pw.FlutterLogo())
+              // pw.SizedBox(height: 20),
+              // pw.Flexible(child: pw.FlutterLogo())
             ],
           );
         },
